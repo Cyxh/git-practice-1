@@ -1,0 +1,87 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
+package frc.robot.commands;
+
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.ExampleSubsystem;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.Timer;
+
+public class MoveForward extends Command {
+
+  Timer timer;
+
+  TalonSRX leftB = new TalonSRX(3);
+  TalonSRX leftM = new TalonSRX(4);
+  TalonSRX leftT = new TalonSRX(5);
+  TalonSRX rightB = new TalonSRX(13);
+  TalonSRX rightM = new TalonSRX(12);
+  TalonSRX rightT = new TalonSRX(11);
+
+  public MoveForward() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    timer.start();
+
+  }
+
+  // Called just before this Command runs the first time
+  @Override
+  protected void initialize() {
+  }
+
+  // Called repeatedly when this Command is scheduled to run
+  @Override
+  protected void execute() {
+
+    leftB.set(ControlMode.PercentOutput, 
+    );
+    leftM.set(ControlMode.PercentOutput, 20);
+    leftT.set(ControlMode.PercentOutput, 20);
+    rightB.set(ControlMode.PercentOutput, 20);
+    rightM.set(ControlMode.PercentOutput, 20);
+    rightT.set(ControlMode.PercentOutput, 20);
+
+  }
+
+  // Make this return true when this Command no longer needs to run execute()
+  @Override
+  protected boolean isFinished() {
+
+    return timer.get() > 5;
+    
+  }
+
+  // Called once after isFinished returns true
+  @Override
+  protected void end() {
+
+    leftB.set(ControlMode.PercentOutput, 0);
+    leftM.set(ControlMode.PercentOutput, 0);
+    leftT.set(ControlMode.PercentOutput, 0);
+    rightB.set(ControlMode.PercentOutput, 0);
+    rightM.set(ControlMode.PercentOutput, 0);
+    rightT.set(ControlMode.PercentOutput, 0);
+
+    timer.reset();
+
+  }
+
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  @Override
+  protected void interrupted() {
+  }
+}
